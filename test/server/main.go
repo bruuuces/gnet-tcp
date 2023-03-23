@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/bruuuces/gnet-tcp/message"
 	"github.com/bruuuces/gnet-tcp/server"
 	"time"
 )
@@ -15,15 +14,15 @@ func main() {
 		ReadTimeOutSec:     10,
 	}
 	tcpServer := server.NewTCPServer(":10001", config)
-	tcpServer.Encoder = func() message.Encoder {
-		encoder, err := message.NewLengthFieldPrepender(4)
+	tcpServer.Encoder = func() server.Encoder {
+		encoder, err := server.NewLengthFieldPrepender(4)
 		if err != nil {
 			panic(err)
 		}
 		return encoder
 	}
-	tcpServer.Decoder = func() message.Decoder {
-		decoder, err := message.NewLengthFieldBasedFrameDecoder(4, 4*1024*1024)
+	tcpServer.Decoder = func() server.Decoder {
+		decoder, err := server.NewLengthFieldBasedFrameDecoder(4, 4*1024*1024)
 		if err != nil {
 			panic(err)
 		}

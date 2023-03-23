@@ -2,7 +2,6 @@ package server
 
 import (
 	"fmt"
-	"github.com/bruuuces/gnet-tcp/message"
 	"github.com/rs/zerolog/log"
 	"net"
 	"runtime/debug"
@@ -38,8 +37,8 @@ type TCPServer struct {
 	lnClosedWait      sync.WaitGroup
 	sessionClosedWait sync.WaitGroup
 	SessionMgr        *SessionManager
-	Encoder           func() message.Encoder
-	Decoder           func() message.Decoder
+	Encoder           func() Encoder
+	Decoder           func() Decoder
 	Handler           func() Handler
 	OnSessionOpen     func(*TCPSession)
 	OnSessionClose    func(*TCPSession)

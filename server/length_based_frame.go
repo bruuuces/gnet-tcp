@@ -1,4 +1,4 @@
-package message
+package server
 
 import (
 	"encoding/binary"
@@ -12,7 +12,7 @@ type LengthFieldPrepender struct {
 	lenFieldLen LenFieldLen
 }
 
-func (p *LengthFieldPrepender) Encode(msgData []byte) ([]byte, error) {
+func (p *LengthFieldPrepender) Encode(_ *TCPSession, msgData []byte) ([]byte, error) {
 	lenFieldBytes, err := p.encodeMsgLen(msgData)
 	if err != nil {
 		return nil, err
@@ -58,7 +58,7 @@ type LengthFieldBasedFrameDecoder struct {
 	maxFrameLen int
 }
 
-func (d *LengthFieldBasedFrameDecoder) Decode(reader io.Reader) ([]byte, error) {
+func (d *LengthFieldBasedFrameDecoder) Decode(_ *TCPSession, reader io.Reader) ([]byte, error) {
 	msgDataLen, err := d.decodeMsgLen(reader)
 	if err != nil {
 		return nil, err

@@ -1,7 +1,6 @@
 package server
 
 import (
-	"github.com/bruuuces/gnet-tcp/message"
 	"github.com/rs/zerolog/log"
 	"io"
 	"net"
@@ -12,8 +11,8 @@ type TCPSession struct {
 	id      uint64
 	conn    net.Conn
 	server  *TCPServer
-	decoder message.Decoder
-	encoder message.Encoder
+	decoder Decoder
+	encoder Encoder
 	handler Handler
 	close   chan bool
 	sndBuf  chan []byte
